@@ -19,10 +19,18 @@
 // (function() {
 //   var flickerAPI = "http://api.openweathermap.org/data/2.5/weather?q=London,uk"
 
-  $.getJSON( "http://weather-api.herokuapp.com/temperature?city=london", function(data){
+// var "http://weather-api.herokuapp.com/temperature?city=london" = host_prefix + '/jsonp?callback=?';
+  $.getJSON( "http://weather-api.herokuapp.com/temperature?city=london" , 'callback=?', function(data){
       console.log(data.temp)
 
   });
+
+  //   var url = host_prefix + '/jsonp?callback=?';
+  // $.getJSON(url, function(jsonp){
+  //   $("#jsonp-response").html(JSON.stringify(jsonp, null, 2));
+  // });
+
+
 
 // })();
 </script>
