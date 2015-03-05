@@ -6,10 +6,6 @@
     <link rel="stylesheet" href="css/weather-style.css">
   </head>
   <body>
-    <form class="city_entry" action="index.html">
-      <input type="text" name="city">
-      <input type="submit" name="submit">
-    </form>
     <main class="shadow">
       <div class="icon snow">
         <img src="images/snow.svg">
@@ -19,40 +15,30 @@
     </main>
     <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
     <script>
-      var apiData = ["London", "Paris"];
+      var apiData = ["London, uk", "Paris, fr", "Sydney, au"];
 
       var temperature = 22;
       var weatherIcon = 'snow';
       $.each(apiData, function(index, city) {
         $('.cities').append(
-          $('<option></option>').val(city).html(city + " ⌄")
+          $('<option></option>').val(city).html(city )
         );
       });
       $('img').attr('src', 'images/' + weatherIcon + '.svg')
 
-      $(".city_entry").submit(function( city){
-        var city = city
-        console.log(city)
-        $.getJSON( "http://api.openweathermap.org/data/2.5/weather?q=london,uk", function(data){
-      var temp = Math.floor(data.main.temp - 273.15)
-      $('.temperature').text(temp);
-      console.log(temp)
 
-})
+       $('.cities').change(function(){
+        var aa = $('option:selected', $(this)).text();
+        callJson(aa)
       });
 
-  //    $.getJSON( "http://api.openweathermap.org/data/2.5/weather?q=london,uk", function(data){
-  //     var temp = Math.floor(data.main.temp - 273.15)
-  //     $('.temperature').text(temp);
-  //     console.log(temp)
-  // });
-
+      function callJson(city) {
+        $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=" + city, function(data){
+          var temp = Math.floor(data.main.temp - 273.15)
+          $('.temperature').text(temp);
+            });
+        };
     </script>
   </body>
 </html>
 
-
-
-<!-- http://weather-api.herokuapp.com/
-to get a list of the available cities go to /cities to get the
-temperature in a chosen city go to /temperature?city=city_name -->
